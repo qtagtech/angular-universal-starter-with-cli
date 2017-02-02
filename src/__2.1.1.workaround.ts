@@ -27,3 +27,9 @@ if (patch) {
     __universal__.CssSelector = __compiler__.CssSelector
     __universal__.SelectorMatcher = __compiler__.SelectorMatcher
 }
+
+// Fix Material Support
+function universalMaterialSupports(eventName: string): boolean { return Boolean(this.isCustomEvent(eventName)); }
+__platform_browser_private__.HammerGesturesPlugin.prototype.supports = universalMaterialSupports;
+// End Fix Material Support
+
