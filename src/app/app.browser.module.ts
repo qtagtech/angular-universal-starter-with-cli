@@ -7,11 +7,14 @@
  */
 
 import { NgModule } from '@angular/core';
-import { UniversalModule } from 'angular2-universal';
+import { UniversalModule, isBrowser, isNode, AUTO_PREBOOT } from 'angular2-universal/browser';
 import { FormsModule } from '@angular/forms';
+import { HomeModule } from './home/home.module';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+
+
 import { AppComponent } from './index';
-// import { RouterModule } from '@angular/router';
-// import { appRoutes } from './app/app.routing';
 
 /**
  * Top-level NgModule "container"
@@ -20,20 +23,29 @@ import { AppComponent } from './index';
   /** Root App Component */
   bootstrap: [ AppComponent ],
   /** Our Components */
-  declarations: [ AppComponent ],
   imports: [
     /**
      * NOTE: Needs to be your first import (!)
      * BrowserModule, HttpModule, and JsonpModule are included
      */
-    UniversalModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot([], { useHash: false }),
+    AppRoutingModule,
+    HomeModule,
+    UniversalModule, // always at the end to override http
     /**
      * using routes
      */
     // RouterModule.forRoot(appRoutes)
+  ],
+  providers: [
+    { provide: 'isBrowser', useValue: isBrowser },
+    { provide: 'isNode', useValue: isNode },
+    // { provide: AUTO_PREBOOT, useValue: false } // turn off auto preboot complete
   ]
 })
 export class AppModule {
 
 }
+
+export { AppComponent } from './app.component'

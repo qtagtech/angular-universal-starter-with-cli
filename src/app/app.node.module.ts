@@ -10,8 +10,9 @@ import { NgModule } from '@angular/core';
 import { UniversalModule } from 'angular2-universal';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './index';
-// import { RouterModule } from '@angular/router';
-// import { appRoutes } from './app/app.routing';
+import { HomeModule } from './home/home.module';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 /**
  * Top-level NgModule "container"
@@ -26,8 +27,12 @@ import { AppComponent } from './index';
      * NOTE: Needs to be your first import (!)
      * NodeModule, NodeHttpModule, NodeJsonpModule are included
      */
+    FormsModule,
+    RouterModule.forRoot([], { useHash: false }),
+
+    HomeModule,
+
     UniversalModule,
-    FormsModule
     /**
      * using routes
      */
